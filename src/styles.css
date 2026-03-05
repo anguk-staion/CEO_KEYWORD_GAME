@@ -1,0 +1,383 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: #1a1a2e;
+  color: #eee;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background: #16213e;
+  border-bottom: 1px solid #0f3460;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.stats span {
+  font-variant-numeric: tabular-nums;
+}
+
+.layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 900px) {
+  .layout {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.game {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+}
+
+.win-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.grid {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.grid-4x3 {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  aspect-ratio: 4 / 3;
+  max-height: min(70vh, 360px);
+}
+
+.card-wrap {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.card-wrap:disabled {
+  cursor: default;
+}
+
+.card-wrap:focus-visible {
+  outline: 2px solid #e94560;
+  outline-offset: 2px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 64px;
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+}
+
+.card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: clamp(0.75rem, 2.5vw, 1rem);
+  padding: 0.25rem;
+  text-align: center;
+}
+
+.card-back {
+  background: linear-gradient(145deg, #0f3460, #16213e);
+  color: #e94560;
+  border: 2px solid #e94560;
+}
+
+.card-front {
+  background: linear-gradient(145deg, #e94560, #c73e54);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transform: rotateY(180deg);
+}
+
+.settings {
+  flex-shrink: 0;
+  background: #16213e;
+  border: 1px solid #0f3460;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 100%;
+  max-width: 320px;
+}
+
+@media (min-width: 900px) {
+  .settings {
+    width: 280px;
+  }
+}
+
+.settings h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.hint {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.settings-input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 180px;
+  background: #1a1a2e;
+  color: #eee;
+  border: 1px solid #0f3460;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.settings-input:focus {
+  outline: none;
+  border-color: #e94560;
+}
+
+.btn-save {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: #e94560;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-save:hover {
+  background: #c73e54;
+}
+
+.btn-save:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* 시작 화면 */
+.start-screen {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.start-screen h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.start-desc {
+  margin: 0 0 1.5rem;
+  color: #aaa;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.start-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.start-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.start-form input {
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #0f3460;
+  border-radius: 6px;
+  background: #1a1a2e;
+  color: #eee;
+}
+
+.start-form input:focus {
+  outline: none;
+  border-color: #e94560;
+}
+
+.btn-challenge {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: #e94560;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.btn-challenge:hover {
+  background: #c73e54;
+}
+
+.btn-challenge:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* 관리자 결과 로그 */
+.admin-logs {
+  margin-top: 2rem;
+  border-top: 1px solid #0f3460;
+  padding-top: 1.5rem;
+}
+
+.btn-logs-toggle {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  background: #0f3460;
+  color: #eee;
+  border: 1px solid #16213e;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-logs-toggle:hover {
+  background: #16213e;
+}
+
+.logs-panel {
+  margin-top: 1rem;
+  background: #16213e;
+  border: 1px solid #0f3460;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.logs-panel h2 {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+}
+
+.logs-empty {
+  margin: 0;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.logs-table-wrap {
+  overflow-x: auto;
+}
+
+.logs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.logs-table th,
+.logs-table td {
+  padding: 0.4rem 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid #0f3460;
+}
+
+.logs-table th {
+  color: #e94560;
+  font-weight: 600;
+}
+
+.logs-table tbody tr:hover {
+  background: rgba(15, 52, 96, 0.3);
+}
+
+/* 게임 완료 오버레이 */
+.btn-home {
+  margin-top: 1rem;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  background: #16213e;
+  color: #fff;
+  border: 1px solid #0f3460;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-home:hover {
+  background: #0f3460;
+}
+
+.win-overlay p {
+  margin: 0.25rem 0;
+}
